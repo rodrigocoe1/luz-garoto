@@ -1,42 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,Button } from 'react-native';
-import React,{ useState } from 'react';
+import {SafeAreaView,FlatList, StyleSheet,Image, Text, View,Button } from 'react-native';
+import React,{useState,useEffect} from 'react';
 
 export default function App() {
-  const [nome,setNome] = useState('Light boy');
-  const [sessao, setSessao] = useState('and the Light');
-  const [baixavel,setBaixavel] = useState(true)
-  const clicado = () =>{
-    setNome("Dark boy");
-    setSessao("and the Darkness")
-    setBaixavel(false)
-  }
-
-
+  const [pokemons,setPokemons] = useState([])
+  useEffect(() =>{
+    fetch('https://pokeapi.co/api/v2/pokemon',{
+        method:'GET',
+        headers: {
+          'Accept': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data=>{
+      console.log(data)
+      setPokemons(data.results)
+    })
+  },[])
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}> { nome } </Text> 
-      <Text style={styles.titulo}> { sessao } </Text>
-      <Text style={styles.titulo}> { baixavel ? "Esta baixavel" :"esta inbaixavel" } </Text>
-      <StatusBar style="auto" />
-      <Button title = 'trocar sessao' onPress={clicado}  />
-    </View>
+    <SafeAreaView style={styles.container}>
+       <FlatList 
+          data={pokemons}
+          keyExtractor={(pokemon) => pokemon.name}
+          contentContainerStyle={{flexGrow: 1}}
+          renderItem={PokemonShow}
+       />
+    </SafeAreaView>
   );
+}
+function PokemonShow(item) {
+  const {name,url}  = item.item
+  const pokemonNumber = url.replace('https://pokeapi.co/api/v2/pokemon','')
+  const ImageUrl = 'https://cdn.traction.one/pokedex/pokemon'+pokemonNumber+'.png'
+  return(
+    <View style={{flexDirection:'row'}}>
+      <Image  style={{width:100, height:100}} 
+              source={{uri: ImageUrl.replace('/.png','.png')}}
+      />
+      <Text styles={styles.titulo}>{name}</Text>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#00008B',
     alignItems: 'center',
     justifyContent: 'center',
   },
   titulo:{
-    color: '#fff',
-    fontSize: 30,
-  },
-  paragrafo:{
-    fontSize: 15,
-    color: '#fff'
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
   }
 });
