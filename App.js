@@ -1,6 +1,6 @@
 import {SafeAreaView,FlatList, StyleSheet,Image, Text, View,Button } from 'react-native';
 import React,{useState,useEffect} from 'react';
-
+import styled from 'styled-components/native';
 export default function App() {
   const [pokemons,setPokemons] = useState([])
   useEffect(() =>{
@@ -32,19 +32,36 @@ function PokemonShow(item) {
   const pokemonNumber = url.replace('https://pokeapi.co/api/v2/pokemon','')
   const ImageUrl = 'https://cdn.traction.one/pokedex/pokemon'+pokemonNumber+'.png'
   return(
-    <View style={{flexDirection:'row'}}>
-      <Image  style={{width:100, height:100}} 
+    <View style={pokemonEstilo.card}>
+      <NomePokemon styles={styles.titulo}>{name}</NomePokemon >
+      <Image  style={pokemonEstilo.imagem} 
               source={{uri: ImageUrl.replace('/.png','.png')}}
       />
-      <Text styles={styles.titulo}>{name}</Text>
+
     </View>
   )
 }
+const pokemonEstilo = StyleSheet.create({
+  card: {
+    FlexDirection: 'column',
+    width: '350',
+    height: '350',
+    backgroundColor: '#23412f',
+    margin: 1,
+    justifyContent:'center',
+    alignItems: 'center',
+    borderRadius: 4,
+  },
+  imagem: {
+    width:  300,
+    height: 300,
+  }
+})
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#00008B',
+    backgroundColor: '#872',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -54,3 +71,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   }
 });
+const NomePokemon = styled.Text`
+  color: #563476;
+  font-size: 30px
+`;
