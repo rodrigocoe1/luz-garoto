@@ -1,7 +1,9 @@
 import {SafeAreaView,FlatList, StyleSheet,Image, Text, View,Button } from 'react-native';
 import React,{useState,useEffect} from 'react';
 import styled from 'styled-components/native';
+import ListItem from './components/ListItem'
 export default function App() {
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleWrapper}>
@@ -10,6 +12,7 @@ export default function App() {
       <View style={styles.divider}>
         
       </View>
+      <ListItem/>
     </SafeAreaView>
   );
 }
