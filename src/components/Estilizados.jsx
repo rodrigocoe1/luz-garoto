@@ -33,5 +33,12 @@ export const Galeria = styled.div`
   flex-direction:row;
   flex-wrap: wrap;
   justify-content: space-around;
-  text-algn:center;
+  text-align:center;
 `;
+
+// git config --global user.name "juliovianadev"
+// git config --global user.email "juliovianadev@gmail.com"
+// git init 
+// git add .
+// git commit -m "criando os quadros"
+// git push <link do repositorio>
