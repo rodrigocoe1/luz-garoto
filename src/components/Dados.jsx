@@ -5,10 +5,10 @@ function Dados({users}) {
   return (
     <>
       <Galeria>
-
-        {users.map((user)=>
+        {users.map((user,index)=>
           <User
-          user={user}
+            key={index}
+            user={user}
           />
           )}
       </Galeria>
