@@ -1,7 +1,7 @@
 import React from 'react'
 import User from './User';
 import { Galeria } from './Estilizados';
-function Dados({users}) {
+function Dados({users,dadosDoInput}) {
   return (
     <>
       <Galeria>
